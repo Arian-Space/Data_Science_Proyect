@@ -130,3 +130,84 @@ plt.ylabel('Accuracy') # Y-label Accuracy
 plt.legend() # Legend for data
 
 plt.show() # Show graph
+
+# # Prediction function
+
+# Read data from a TXT file
+with open('link_2', 'r') as file:
+    lines = file.readlines()
+
+# Split lines in text and labels
+sentences_val = []
+labelss_val = []
+for line in lines:
+    parts = line.strip().split()
+    text = ' '.join(parts[1:])
+    label = str(parts[0])
+    sentences_val.append(text)
+    labelss_val.append(label)
+
+# Re-definition
+'''
+sentences_val = sentences_val[0:100]
+labelss_val = labelss_val[0:100]
+'''
+
+# Tokenization and text sequencing
+max_words = 1000  # Maximum number of words in the vocabulary
+tokenizer = Tokenizer(num_words=max_words)
+tokenizer.fit_on_texts(sentences_val)
+sequences = tokenizer.texts_to_sequences(sentences_val)
+
+'''
+# Padding sequences so they are the same length
+max_sequence_length = max(len(seq) for seq in sentences_val)
+sentences_val = pad_sequences(sequences, maxlen=max_sequence_length)
+'''
+
+# New arrangement validation
+labels_val = []
+
+# Go to binary
+for i in labelss_val:
+  if i == 'ham':
+    labels_val.append(0)
+  else:
+    labels_val.append(1)
+
+# Transform arrays in numpy
+sentences_val = np.array(sentences_val)
+labels_val = np.array(labels_val)
+
+# # Checking the variables
+
+# print(len(sentences_val))
+# print(len(labels_val))
+
+# # Classify new text
+
+labels_val
+# Predict results
+new_sequence = tokenizer.texts_to_sequences(sentences_val)
+new_sequence = pad_sequences(new_sequence, maxlen=171)
+prediction = model.predict(new_sequence)
+
+predictionBin = []
+
+# Examine probability
+for i in prediction:
+  if i < 0.5:
+    predictionBin.append(0)
+  else:
+    predictionBin.append(1)
+
+# print("Prediction:", predictionBin)
+
+# Examine validation
+resultFin = []
+for i in range(len(labels_val)):
+ if labels_val[0] == predictionBin[0]:
+  resultFin.append(labels_val[0])
+
+# Final score
+print('The probability for a good clasification is:', round(len(resultFin)/len(labels_val)*100,2))
