@@ -31,45 +31,43 @@ import matplotlib.pyplot as plt
 
 # # Variables and data
 
-def create_data(training_data):
+# Link containing training data
+LINK_TRAIN = "link_1"
+# Link containing validation data
+LINK_VAL = "link_2"
+# Type of data to take into account
+CLASS_MODE = "binary"
+# Type of color to take into account (grayscale)
+COLOR_MODE1 = "grayscale"
+# Type of color to take into account (rgb)
+COLOR_MODE2 = "rgb"
+# Size in pixels
+TARGET_SIZE = (150, 150)
+# Batch Size
+BATCH_SIZE = 3
 
-  # Link containing training data
-  LINK_TRAIN = "link_1"
-  # Link containing validation data
-  LINK_VAL = "link_2"
-  # Type of data to take into account
-  CLASS_MODE = "binary"
-  # Type of color to take into account (grayscale)
-  COLOR_MODE1 = "grayscale"
-  # Type of color to take into account (rgb)
-  COLOR_MODE2 = "rgb"
-  # Size in pixels
-  TARGET_SIZE = (150, 150)
-  # Batch Size
-  BATCH_SIZE = 3
-  
-  # Object creator (training)
-  train_datagen = ImageDataGenerator(rescale=1.0/255,zoom_range=0.1,rotation_range=25,width_shift_range=0.05,height_shift_range=0.05)
-  # Object creator (validation)
-  validation_datagen = ImageDataGenerator(rescale=1.0/255,zoom_range=0.1,rotation_range=25,width_shift_range=0.05,height_shift_range=0.05)
-  
-  # Validation data generator
-  train_generator = train_datagen.flow_from_directory(
-      LINK_TRAIN,
-      target_size=TARGET_SIZE,
-      batch_size=BATCH_SIZE,
-      class_mode=CLASS_MODE,
-      color_mode=COLOR_MODE2
-  )
-  
-  # Validation data generator
-  validation_generator = validation_datagen.flow_from_directory(
-      LINK_VAL,
-      target_size=TARGET_SIZE,
-      batch_size=BATCH_SIZE,
-      class_mode=CLASS_MODE,
-      color_mode=COLOR_MODE2
-  )
+# Object creator (training)
+train_datagen = ImageDataGenerator(rescale=1.0/255,zoom_range=0.1,rotation_range=25,width_shift_range=0.05,height_shift_range=0.05)
+# Object creator (validation)
+validation_datagen = ImageDataGenerator(rescale=1.0/255,zoom_range=0.1,rotation_range=25,width_shift_range=0.05,height_shift_range=0.05)
+
+# Validation data generator
+train_generator = train_datagen.flow_from_directory(
+    LINK_TRAIN,
+    target_size=TARGET_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode=CLASS_MODE,
+    color_mode=COLOR_MODE2
+)
+
+# Validation data generator
+validation_generator = validation_datagen.flow_from_directory(
+    LINK_VAL,
+    target_size=TARGET_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode=CLASS_MODE,
+    color_mode=COLOR_MODE2
+)
   
 # # Function to build the model
 
